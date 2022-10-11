@@ -23,4 +23,13 @@ app.delete('/products/:id', async (req, res) => {
   res.status(200).json({ message: 'product has been deleted' });
 });
 
+app.get('/products', async (req, res) => {
+  try {
+    const result = await Product.findAll();
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(500).json({ message: 'internal server error' })
+  }
+})
+
 app.listen(port);
