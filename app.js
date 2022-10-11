@@ -7,7 +7,6 @@ app.post('/register', (req, res) => {
   res.status(201).json({ username, password });
 });
 
-<<<<<<< HEAD
 app.post('/products', (req, res) => {
   const { name, price, image } = req.body;
   Product
@@ -19,11 +18,9 @@ app.post('/products', (req, res) => {
       res.status(500).json({ message: 'internal server error'});
     });
 })
-=======
 app.delete('/products/:id', async (req, res) => {
   Product.destroy({ where: +req.params.id });
   res.status(200).json({ message: 'product has been deleted' });
 });
->>>>>>> delete-product
 
 app.listen(port);
