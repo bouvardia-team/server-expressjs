@@ -18,6 +18,7 @@ app.post('/products', (req, res) => {
       res.status(500).json({ message: 'internal server error'});
     });
 })
+
 app.delete('/products/:id', async (req, res) => {
   Product.destroy({ where: +req.params.id });
   res.status(200).json({ message: 'product has been deleted' });
@@ -35,6 +36,15 @@ app.put('/products/:id', (req, res) => {
   .catch(err => {
     res.status(500).json({ message: 'internal server error'});
   })
+})
+
+app.get('/products', async (req, res) => {
+  try {
+    const result = await Product.findAll();
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(500).json({ message: 'internal server error' })
+  }
 })
 
 app.listen(port);
