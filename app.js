@@ -18,10 +18,25 @@ app.post('/products', (req, res) => {
       res.status(500).json({ message: 'internal server error'});
     });
 })
+
 app.delete('/products/:id', async (req, res) => {
   Product.destroy({ where: +req.params.id });
   res.status(200).json({ message: 'product has been deleted' });
 });
+
+app.put('/products/:id', (req, res) => {
+  const { id } = req.params;
+  const { name, price, image } = req.body;
+  Product.update({ name, price, image }, { where: id})
+  .then(result => {
+    if (result[0] >= 1) {
+      res.status(200).json({ message: 'product has been updated' });
+    }
+  })
+  .catch(err => {
+    res.status(500).json({ message: 'internal server error'});
+  })
+})
 
 app.get('/products', async (req, res) => {
   try {
